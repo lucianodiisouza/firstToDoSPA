@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheCode Do</title>
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <input type="text" class="txtb" placeholder="Adicionar tarefa">
+        <div class="notcomp">
+            <h3>Incompletos</h3>
+        </div>
+
+        <div class="comp">
+            <h3>Finalizados</h3>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".txtb").on("keyup", function(e) {
+            // codigo 13 é o botão de enter
+            if (e.keyCode == 13 && $(".txtb").val() != "") {
+                var tarefa = $("<div class='task'></div>").text($(".txtb").val());
+                var deletar = $("<i class='fas fa-trash-alt'></i>").click(function() {
+                    var p = $(this).parent();
+
+                    p.fadeOut(function() {
+                        p.remove();
+                    });
+                });
+                var marcarPronta = $("<i class='fas fa-check'></i>").click(function() {
+                    var c = $(this).parent();
+
+                    c.fadeOut(function() {
+                        $(".comp").append(c);
+                        c.fadeIn();
+                    });
+                    $(this).remove();
+                });
+
+                // Adicionar os botões de Delete e Check no Card
+                tarefa.append(deletar, marcarPronta);
+                $(".notcomp").append(tarefa);
+                // Limpar a entrada de dados
+                $(".txtb").val("");
+            }
+        });
+    </script>
+</body>
+
+</html>
